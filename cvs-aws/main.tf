@@ -56,7 +56,8 @@ resource "nks_solution" "cvs_aws" {
 # Configure Kubernetes cluster
 # -----------------------------------------------------------------------------
 provider "kubernetes" {
-  config_path = "kubeconfig"
+  load_config_file = true
+  config_path      = "kubeconfig"
 }
 
 resource "kubernetes_persistent_volume_claim" "cvs_aws" {
