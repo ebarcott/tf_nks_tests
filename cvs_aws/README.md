@@ -2,7 +2,7 @@ Example:
 
 ```
 module "cvs_aws_test" {
-  source = "github.com/StackPointCloud/tf_nks_tests/cvs-aws"
+  source = "github.com/StackPointCloud/tf_nks_tests/cvs_aws"
 
   aws_access_key = "AWS_ACCESS_KEY"
   aws_secret_key = "AWS_SECRET_KEY"

@@ -9,7 +9,7 @@ terraform {
 # Deploy AWS cluster
 # -----------------------------------------------------------------------------
 module "aws_cluster" {
-  source = "github.com/StackPointCloud/tf_nks?ref=kubeconfig_output"
+  source = "github.com/StackPointCloud/tf_nks"
 
   provider_code        = "aws"
   cluster_name         = "TF - Cloud Volumes for AWS"
