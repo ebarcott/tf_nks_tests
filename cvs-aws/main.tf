@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# Deploy NKS cluster on AWS and Azure w/ Istio
+# Deploy NKS cluster on AWS with Cloud Volumes
 # -----------------------------------------------------------------------------
 terraform {
   required_version = ">= 0.11.0"
@@ -9,11 +9,10 @@ terraform {
 # Deploy AWS cluster
 # -----------------------------------------------------------------------------
 module "aws_cluster" {
-  source = "github.com/StackPointCloud/tf_nks"
+  source = "github.com/StackPointCloud/tf_nks?ref=kubeconfig_output"
 
   provider_code        = "aws"
-  cluster_name         = "TF - Cloud Volumes for AWS Test"
-  kubeconfig_path      = "kubeconfig"
+  cluster_name         = "TF - Cloud Volumes for AWS"
   provider_keyset_name = "${var.aws_keyset_name}"
   aws_access_key       = "${var.aws_access_key}"
   aws_secret_key       = "${var.aws_secret_key}"
@@ -23,6 +22,12 @@ module "aws_cluster" {
   zone                 = "${var.zone}"
   master_size          = "${var.master_size}"
   worker_size          = "${var.worker_size}"
+}
+
+resource "local_file" "kubeconfig" {
+  depends_on = ["module.aws_cluster"]
+  content    = "${module.aws_cluster.kubeconfig}"
+  filename   = "./kubeconfig"
 }
 
 # -----------------------------------------------------------------------------
@@ -53,11 +58,10 @@ resource "nks_solution" "cvs_aws" {
 }
 
 # -----------------------------------------------------------------------------
-# Configure Kubernetes cluster
+# Deploy Kubernetes Persistent Volume Claim
 # -----------------------------------------------------------------------------
 provider "kubernetes" {
-  load_config_file = true
-  config_path      = "kubeconfig"
+  config_path = "${local_file.kubeconfig.filename}"
 }
 
 resource "kubernetes_persistent_volume_claim" "cvs_aws" {
