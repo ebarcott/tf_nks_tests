@@ -1,19 +1,14 @@
-### Requirements
+# WIP: NKS Cloud Volumes for AWS
 
-* NKS API token - [https://stackpoint.io](https://stackpoint.io) / Edit Profile / API Tokens
+### Module Requirements
+
+* Base [NKS module](https://github.com/StackPointCloud/tf_nks_tests) requirements
 * AWS access key and secret key
 * API key and secret key for Cloud Volumes for AWS
 
-### Example Usage
+### Module Configuration
 
-1. Set the NKS API token. 
-
-```
-export NKS_API_TOKEN=[your NKS API token]
-export NKS_BASE_API_URL=[staging API URL]
-```
-
-2. Create `main.tf` with the following:
+`main.tf`:
 
 ```
 module "cvs_aws_test" {
@@ -26,22 +21,15 @@ module "cvs_aws_test" {
   cvs_secret_key = "CVS_SECRET_KEY"
 }
 ```
+## Module Parameters
 
-3 Run Terraform.
-
-
-```
-terraform init
-terraform plan
-terraform apply
-```
-
-Note: _The NKS provider binary for Terraform must be manually installed until it is officially released._
-
-Optional module parameters:
-
-* `aws_keyset_name` - Existing NKS provider keyset name.
+* `aws_access_key` - AWS access key.
+* `aws_secret_key` - AWS secret key.
+* `aws_keyset_name` - Existing NKS provider keyset name (AWS keys and provider keyset name are mutually exclusive).
+* `ssh_key_path` - Path to the public SSH key (`ssh_key_path` and `ssh_keyset_name` are mutually exclusive).
 * `ssh_keyset_name` - Existing NKS SSH keyset name.
+* `cvs_api_key` - CVS API key
+* `cvs_secret_key` - CVS API secret key.
 * `region` - (default: us-east-1)
 * `zone` - (default: us-east-1a)
 * `master_size` - (default: t2.medium)
