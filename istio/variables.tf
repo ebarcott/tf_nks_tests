@@ -28,6 +28,22 @@ variable "aws_secret_key" {
   default = ""
 }
 
+variable "aws_region" {
+  default = "us-east-1"
+}
+
+variable "aws_zone" {
+  default = "us-east-1a"
+}
+
+variable "aws_master_size" {
+  default = "t2.medium"
+}
+
+variable "aws_worker_size" {
+  default = "t2.medium"
+}
+
 variable "azure_keyset_name" {
   default = ""
 }
@@ -46,4 +62,16 @@ variable "azure_tenant_id" {
 
 variable "azure_subscription_id" {
   default = ""
+}
+
+variable "azure_region" {
+  default = "eastus"
+}
+
+variable "azure_master_size" {
+  default = "standard_f2"
+}
+
+variable "azure_worker_size" {
+  default = "standard_f2"
 }

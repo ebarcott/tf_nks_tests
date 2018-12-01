@@ -11,8 +11,8 @@ terraform {
 module "aws_cluster" {
   source = "github.com/StackPointCloud/tf_nks"
 
-  provider_code   = "aws"
-  cluster_name    = "TF - Istio 1"
+  provider_code = "aws"
+  cluster_name  = "TF - Istio 1"
 
   provider_keyset_name = "${var.aws_keyset_name}"
   aws_access_key       = "${var.aws_access_key}"
@@ -21,14 +21,16 @@ module "aws_cluster" {
   ssh_keyset_name = "${var.ssh_keyset_name}"
   ssh_key_path    = "${var.ssh_key_path}"
 
-  region      = "us-east-2"
-  zone        = "us-east-2a"
-  master_size = "t2.medium"
-  worker_size = "t2.medium"
+  region      = "${var.aws_region}"
+  zone        = "${var.aws_zone}"
+  master_size = "${var.aws_master_size}"
+  worker_size = "${var.aws_worker_size}"
 }
 
-output "aws_nodes" {
-  value = "${module.aws_cluster.nodes}"
+resource "local_file" "aws_kubeconfig" {
+  depends_on = ["module.aws_cluster"]
+  content    = "${module.aws_cluster.kubeconfig}"
+  filename   = "./kubeconfig_aws"
 }
 
 # -----------------------------------------------------------------------------
@@ -46,8 +48,8 @@ resource "nks_solution" "aws_istio" {
 module "azure_cluster" {
   source = "github.com/StackPointCloud/tf_nks"
 
-  provider_code   = "azure"
-  cluster_name    = "TF - Istio 2"
+  provider_code = "azure"
+  cluster_name  = "TF - Istio 2"
 
   ssh_keyset_name = "${var.ssh_keyset_name}"
   ssh_key_path    = "${var.ssh_key_path}"
@@ -58,9 +60,15 @@ module "azure_cluster" {
   azure_tenant_id       = "${var.azure_tenant_id}"
   azure_subscription_id = "${var.azure_subscription_id}"
 
-  region      = "eastus"
-  master_size = "standard_f2"
-  worker_size = "standard_f2"
+  region      = "${var.azure_region}"
+  master_size = "${var.azure_master_size}"
+  worker_size = "${var.azure_worker_size}"
+}
+
+resource "local_file" "azure_kubeconfig" {
+  depends_on = ["module.azure_cluster"]
+  content    = "${module.azure_cluster.kubeconfig}"
+  filename   = "./kubeconfig_azure"
 }
 
 # -----------------------------------------------------------------------------
@@ -70,8 +78,4 @@ resource "nks_solution" "azure_istio" {
   org_id     = "${module.azure_cluster.org_id}"
   cluster_id = "${module.azure_cluster.cluster_id}"
   solution   = "istio"
-}
-
-output "azure_nodes" {
-  value = "${module.azure_cluster.nodes}"
 }

@@ -35,11 +35,18 @@ module "istio_test" {
 * `aws_access_key`
 * `aws_secret_key`
 * `aws_keyset_name`
+* `aws_region`
+* `aws_zone`
+* `aws_master_size`
+* `aws_worker_size`
 * `azure_client_id`
 * `azure_client_secret`
 * `azure_tenant_id`
 * `azure_subscription_id`
 * `azure_keyset_name`
+* `azure_region`
+* `azure_master_size`
+* `azure_worker_size`
 * `ssh_keyset_name`
 * `ssh_key_path`
 
@@ -51,4 +58,3 @@ module "istio_test" {
 ## Limitations
 
 * Further Istio configuration is not available through the NKS API and provider.
-* Need to allow customizable regions, zones, etc.
