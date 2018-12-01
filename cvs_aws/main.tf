@@ -68,7 +68,11 @@ resource "kubernetes_persistent_volume_claim" "cvs_aws" {
   depends_on = ["nks_solution.cvs_aws"]
   metadata {
     name = "cvsaws"
+    labels {
+      source = "terraform"
+    }
   }
+
   spec {
     access_modes = ["ReadWriteOnce"]
     resources {
