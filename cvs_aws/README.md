@@ -1,15 +1,16 @@
-## Requirements
+### Requirements
 
-* [NKS API token](https://stackpoint.io/user/profile)
+* NKS API token - [https://stackpoint.io](https://stackpoint.io) / Edit Profile / API Tokens
 * AWS access key and secret key
 * API key and secret key for Cloud Volumes for AWS
 
-## Example Usage
+### Example Usage
 
 1. Set the NKS API token. 
 
 ```
 export NKS_API_TOKEN=[your NKS API token]
+export NKS_BASE_API_URL=[staging API URL]
 ```
 
 2. Create `main.tf` with the following:
@@ -39,9 +40,9 @@ Note: _The NKS provider binary for Terraform must be manually installed until it
 
 Optional module parameters:
 
-* `aws_keyset_name`: Existing NKS provider keyset name.
-* `ssh_keyset_name`: Existing NKS SSH keyset name.
-* `region`: (default: us-east-1)
-* `zone`: (default: us-east-1a)
-* `master_size`: (default: t2.medium)
-* `worker_size`: (default: t2.medium)
+* `aws_keyset_name` - Existing NKS provider keyset name.
+* `ssh_keyset_name` - Existing NKS SSH keyset name.
+* `region` - (default: us-east-1)
+* `zone` - (default: us-east-1a)
+* `master_size` - (default: t2.medium)
+* `worker_size` - (default: t2.medium)
