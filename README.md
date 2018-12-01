@@ -1,6 +1,6 @@
 # NKS provider modules for Terraform
 
-*Note*: _The [NKS provider plugin](https://github.com/StackPointCloud/terraform-provider-nks) binary for Terraform must be compiled and manually installed until officially released._
+**Note**: _The [NKS provider plugin](https://github.com/StackPointCloud/terraform-provider-nks) binary for Terraform must be compiled and manually installed until officially released._
 
 ### Base Requirements
 
