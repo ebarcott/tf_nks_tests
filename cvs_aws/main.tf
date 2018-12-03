@@ -80,6 +80,6 @@ resource "kubernetes_persistent_volume_claim" "cvs_aws" {
         storage = "1Gi"
       }
     }
-    storage_class_name = "aws-cvs"
+    storage_class_name = "cvs-aws"
   }
 }
